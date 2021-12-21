@@ -20,31 +20,42 @@ export const resolvers = {
 
       if (validarPassword) {
         const token = await generarJwt(usuario.id, usuario.nombre, usuario.rol);
-        return token;
+        return {
+          token,
+          usuario: `${ usuario.nombre }`,
+          rol: usuario.rol
+      };
+
       } else {
         return "Usuario o contraseña incorrecta";
       }
     },
+    
 
 
     async proyectos(_, args, context) {
-
+/*
       if (context.user.auth && (context.user.rol === "Administrador")
       ) {
-        return await Proyecto.find().populate("lider");
+        return await Proyecto.find().populate("Lider");
 
       } else if (context.user.auth && (context.user.rol === "Lider")) {
-        return await Proyecto.find({lider: context.user.id}).populate("lider");
+        return await Proyecto.find({lider: context.user.id}).populate("Lider");
 
       } else if (context.user.auth && (context.user.rol === "Estudiante")) {
-        return await Proyecto.find({estado: true}).populate("lider");
+        return await Proyecto.find({estado: true}).populate("Lider");
 
       } else {
         return null;
       }
+      */return await Proyecto.find();
     },
-    
+    async UsuarioById(_, {id}) {
+      return await Usuario.findById(id);
+  },
     async Usuarios(_, args, context) {
+      //return await Usuario.find();
+      
       if (context.user.auth && context.user.rol === "Administrador") {
         return await Usuario.find();
       } else if (context.user.auth && context.user.rol === "Lider") {
@@ -52,6 +63,7 @@ export const resolvers = {
       } else {
         return null;
       }
+      
     },
 
     async Inscripciones(_,args,context) {
@@ -210,7 +222,7 @@ export const resolvers = {
         }
       }
     },
-    //HU-18
+
     async agregarObservacion(_, { idAvance, observacion }, context) {
       if (context.user.auth) {
         if (context.user.rol === "Lider") {
@@ -228,7 +240,7 @@ export const resolvers = {
         }
       }
     },
-    //HU-22
+
     async agregarAvance(_, { idProyecto, avance }, context) {
       if (context.user.auth) {
         if (context.user.rol === "Estudiante") {
@@ -257,7 +269,7 @@ export const resolvers = {
           return "No está autorizado para agregar avances";
         }
       },
-      //HU-23
+
       async actualizarAvance(_, { idAvance, avance }, context) {
         if (context.user.auth) {
           if (context.user.rol === "Estudiante") {

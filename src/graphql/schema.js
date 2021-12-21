@@ -4,15 +4,21 @@ import { resolvers } from "./resolvers";
 const typeDefs = `
 
     type Query {
-        login(email: String!, password: String!): String,
+        login(email: String!, password: String!): Auth,
         proyectos: [Proyecto],
         Inscripciones: [Inscripcion],
         Usuarios : [Usuario],
+        UsuarioById(id: ID!) : Usuario,
         informacionProyectoLider(id: ID!): Proyecto,
         listaAvances(idProyecto:ID!):[Avance]
         
     }
-    
+    type Auth {
+        token: String,
+        usuario: String,
+        rol: String
+    }
+
     type Mutation {
         agregarUsuario(input: UsuarioInput): Usuario,
 
@@ -69,8 +75,8 @@ const typeDefs = `
     type Proyecto {
         id: ID,
         nombre: String,
-        objetivosG: [String],
-        objetivosE: [String],
+        objetivosG: String,
+        objetivosE: String,
         presupuesto: Int,
         fechaInicio: String,
         fechaFin: String,
@@ -97,8 +103,8 @@ const typeDefs = `
 
     input ProyectoInput {
         nombre: String,
-        objetivosG: [String],
-        objetivosE: [String],
+        objetivosG: String,
+        objetivosE: String,
         presupuesto: Int,
         lider: ID
     }
