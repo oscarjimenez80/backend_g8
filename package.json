@@ -8,8 +8,9 @@
     "clean": "rimraf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",
     "build": "cross-env NODE_ENV=production npm run clean && npm run build-babel",
-    "start": "cross-env NODE_ENV=production npm run build && node ./build/index.js",
-    "dev": "cross-env NODE_ENV=dev nodemon src/index.js --exec babel-node"
+
+    "start": "babel-node src/index.js",
+    "dev": "nodemon src/index.js --exec babel-node"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,8 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/node": "^7.16.0",
-    "@babel/preset-env": "^7.16.4"
+    "@babel/preset-env": "^7.16.4",
+    "babel-jest": "^27.4.5",
+    "babel-polyfill": "^6.26.0"
   }
 }
