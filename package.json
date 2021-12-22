@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
-    "start": "cross-env NODE_ENV=production npm run build && node ./build/index.js",
+    "start": "babel-node src/index.js",
     "dev": "nodemon src/index.js --exec babel-node",
     "build": "babel src -d dist --source-maps"
   },
@@ -13,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -28,7 +26,7 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
-    "@babel/node": "^7.16.0",
+    "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.16.4"
   }
 }
